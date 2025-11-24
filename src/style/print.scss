@@ -1,0 +1,54 @@
+@media print {
+
+    /* Hide non-print elements */
+    .no-print {
+        display: none !important;
+    }
+
+    /* Reset margins */
+    @page {
+        margin: 0.5cm;
+        size: A4 portrait;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Dot matrix optimized font */
+    * {
+        font-family: 'Courier New', Courier, monospace !important;
+        color: #000 !important;
+        background: transparent !important;
+    }
+
+    /* Table styling for dot matrix */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    table td,
+    table th {
+        border: 1px solid #000;
+        padding: 2px 4px;
+    }
+
+    /* Page breaks */
+    .page-break {
+        page-break-after: always;
+    }
+
+    .avoid-break {
+        page-break-inside: avoid;
+    }
+
+    /* Character spacing for alignment */
+    .mono-spacing {
+        letter-spacing: 0;
+        word-spacing: 0;
+    }
+}
