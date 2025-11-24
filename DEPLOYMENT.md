@@ -1,24 +1,20 @@
 # Deployment Guide - Panca Report System
 
-## Prerequisites
+## Setup GitHub Secrets
 
-### Server Requirements
+Di GitHub repository, buka **Settings > Secrets and variables > Actions**, tambahkan:
 
-- Ubuntu/Debian Linux (or similar)
-- Node.js 20.x
-- npm
-- Git
-- PM2 (will be installed by script if not present)
+| Secret Name    | Value                 | Example                        |
+| -------------- | --------------------- | ------------------------------ |
+| `SSH_HOST`     | IP atau domain server | `192.168.1.100`                |
+| `SSH_USERNAME` | Username SSH          | `root` atau `ubuntu`           |
+| `SSH_PASSWORD` | Password SSH          | `your-password`                |
+| `SSH_PORT`     | Port SSH (optional)   | `22` (default)                 |
+| `DEPLOY_PATH`  | Path ke app di server | `/var/www/panca-report-webapp` |
 
-### GitHub Repository
+## Setup di Server
 
-- Repository must be accessible from server (public or with SSH key)
-
-## Setup Steps
-
-### 1. Server Setup
-
-SSH ke server dan install dependencies:
+### 1. Install Dependencies
 
 ```bash
 # Update system
@@ -34,12 +30,11 @@ sudo apt install -y git
 # Install PM2 globally
 sudo npm install -g pm2
 
-# Setup PM2 startup script
-pm2 startup
-# Follow the command output
+# Install http-server
+sudo npm install -g http-server
 ```
 
-### 2. Clone Repository di Server
+### 2. Clone Repository
 
 ```bash
 # Create app directory
@@ -49,12 +44,9 @@ sudo chown $USER:$USER /var/www/panca-report-webapp
 # Clone repository
 cd /var/www/panca-report-webapp
 git clone https://github.com/YOUR_USERNAME/panca-report-webapp.git .
-
-# Or if using SSH key
-git clone git@github.com:YOUR_USERNAME/panca-report-webapp.git .
 ```
 
-### 3. Setup Deploy Script di Server
+### 3. Setup Deploy Script
 
 ```bash
 # Copy example deploy script
@@ -62,7 +54,7 @@ cp deploy.sh.example deploy.sh
 
 # Edit configuration
 nano deploy.sh
-# Update: REPO_URL, BRANCH, APP_DIR, PM2_APP_NAME
+# Update: REPO_URL dengan URL repository kamu
 
 # Make executable
 chmod +x deploy.sh
@@ -71,94 +63,36 @@ chmod +x deploy.sh
 bash deploy.sh
 ```
 
-### 4. Setup GitHub Secrets
-
-Di GitHub repository, buka **Settings > Secrets and variables > Actions**, tambahkan:
-
-| Secret Name       | Value                 | Example                                   |
-| ----------------- | --------------------- | ----------------------------------------- |
-| `SSH_HOST`        | IP atau domain server | `192.168.1.100` atau `server.example.com` |
-| `SSH_USERNAME`    | Username SSH          | `ubuntu` atau `root`                      |
-| `SSH_PRIVATE_KEY` | Private SSH key       | Isi dari `~/.ssh/id_rsa`                  |
-| `SSH_PORT`        | Port SSH (optional)   | `22` (default)                            |
-| `DEPLOY_PATH`     | Path ke app di server | `/var/www/panca-report-webapp`            |
-
-### 5. Generate SSH Key (jika belum ada)
-
-Di local machine:
+### 4. Setup PM2 Startup
 
 ```bash
-# Generate SSH key
-ssh-keygen -t rsa -b 4096 -C "github-actions"
+# Setup PM2 to start on boot
+pm2 startup
+# Follow the command output and run the suggested command
 
-# Copy public key ke server
-ssh-copy-id -i ~/.ssh/id_rsa.pub user@server
-
-# Copy private key untuk GitHub Secret
-cat ~/.ssh/id_rsa
-# Copy output dan paste ke GitHub Secret SSH_PRIVATE_KEY
-```
-
-### 6. Setup Nginx (Optional)
-
-Jika ingin serve via Nginx:
-
-```bash
-# Install Nginx
-sudo apt install -y nginx
-
-# Create Nginx config
-sudo nano /etc/nginx/sites-available/panca-report
-```
-
-Isi config:
-
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-
-    root /var/www/panca-report-webapp/dist/panca-report-webapp/browser;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # Gzip compression
-    gzip on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-}
-```
-
-Enable site:
-
-```bash
-sudo ln -s /etc/nginx/sites-available/panca-report /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl restart nginx
+# Save PM2 process list
+pm2 save
 ```
 
 ## Deployment Process
 
 ### Automatic Deployment
 
-Push ke branch `main` atau `master`:
+Setiap kali push ke branch `main` atau `master`, GitHub Actions akan otomatis:
+
+1. SSH ke server menggunakan username & password
+2. Navigate ke `DEPLOY_PATH`
+3. Execute `deploy.sh` yang akan:
+   - Pull latest code dari GitHub
+   - Install dependencies (`npm install`)
+   - Build Angular app (`npm run build`)
+   - Reload PM2 app
 
 ```bash
 git add .
 git commit -m "Update feature"
 git push origin main
 ```
-
-GitHub Actions akan otomatis:
-
-1. SSH ke server
-2. Execute `deploy.sh`
-3. Pull latest code
-4. Install dependencies
-5. Build Angular app
-6. Restart PM2
 
 ### Manual Deployment
 
@@ -178,6 +112,9 @@ pm2 status
 # View logs
 pm2 logs panca-report
 
+# View logs (last 100 lines)
+pm2 logs panca-report --lines 100
+
 # Restart app
 pm2 restart panca-report
 
@@ -187,22 +124,76 @@ pm2 stop panca-report
 # Delete app from PM2
 pm2 delete panca-report
 
-# Monitor
+# Monitor (real-time)
 pm2 monit
+```
+
+## Access Application
+
+Setelah deployment berhasil, aplikasi akan berjalan di:
+
+```
+http://YOUR_SERVER_IP:4200
+```
+
+## Setup Nginx (Optional)
+
+Jika ingin serve via Nginx di port 80:
+
+```bash
+# Install Nginx
+sudo apt install -y nginx
+
+# Create Nginx config
+sudo nano /etc/nginx/sites-available/panca-report
+```
+
+Isi config:
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;  # Ganti dengan domain kamu
+
+    location / {
+        proxy_pass http://localhost:4200;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Enable site:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/panca-report /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+Sekarang bisa diakses via:
+
+```
+http://your-domain.com
 ```
 
 ## Troubleshooting
 
 ### GitHub Actions gagal SSH
 
-```bash
-# Test SSH connection dari local
-ssh -i ~/.ssh/id_rsa user@server
+**Error: Permission denied**
 
-# Check SSH key format (harus RSA)
-cat ~/.ssh/id_rsa | head -1
-# Should show: -----BEGIN RSA PRIVATE KEY-----
-```
+- Pastikan username & password benar
+- Cek apakah SSH port benar (default: 22)
+- Pastikan server allow password authentication:
+  ```bash
+  sudo nano /etc/ssh/sshd_config
+  # Set: PasswordAuthentication yes
+  sudo systemctl restart sshd
+  ```
 
 ### Build gagal di server
 
@@ -210,9 +201,11 @@ cat ~/.ssh/id_rsa | head -1
 # Check Node version
 node -v  # Should be v20.x
 
-# Clear cache
-rm -rf node_modules package-lock.json
+# Clear cache and reinstall
+cd /var/www/panca-report-webapp
+rm -rf node_modules package-lock.json .angular
 npm install
+npm run build
 ```
 
 ### PM2 tidak start
@@ -221,23 +214,95 @@ npm install
 # Check PM2 logs
 pm2 logs panca-report --lines 100
 
-# Restart PM2
-pm2 restart all
+# Delete and restart
+pm2 delete panca-report
+pm2 start ecosystem.config.js
+
+# Save configuration
+pm2 save
 ```
 
-### Port sudah digunakan
+### Port 4200 sudah digunakan
 
 ```bash
-# Check port usage
+# Check what's using port 4200
 sudo lsof -i :4200
 
 # Kill process
 sudo kill -9 PID
+
+# Or change port di ecosystem.config.js
+nano ecosystem.config.js
+# Change: -p 4200 to -p 4201
+```
+
+### Git pull gagal (authentication)
+
+Jika repository private, setup Git credentials di server:
+
+```bash
+# Option 1: HTTPS with token
+git config --global credential.helper store
+git pull  # Enter username & personal access token
+
+# Option 2: SSH key
+ssh-keygen -t rsa -b 4096 -C "server@example.com"
+cat ~/.ssh/id_rsa.pub
+# Add public key ke GitHub Settings > SSH Keys
+```
+
+## Security Recommendations
+
+1. **Gunakan SSH Key** (lebih aman dari password):
+
+   - Generate key: `ssh-keygen -t rsa -b 4096`
+   - Add public key ke server: `ssh-copy-id user@server`
+   - Update GitHub workflow untuk pakai `key` instead of `password`
+
+2. **Firewall**:
+
+   ```bash
+   sudo ufw allow 22/tcp    # SSH
+   sudo ufw allow 80/tcp    # HTTP
+   sudo ufw allow 443/tcp   # HTTPS
+   sudo ufw enable
+   ```
+
+3. **Disable root login**:
+
+   ```bash
+   sudo nano /etc/ssh/sshd_config
+   # Set: PermitRootLogin no
+   sudo systemctl restart sshd
+   ```
+
+4. **Use strong password** atau lebih baik pakai SSH key
+
+5. **Keep system updated**:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   ```
+
+## Monitoring
+
+Setup PM2 monitoring dashboard:
+
+```bash
+# Start PM2 web interface
+pm2 web
+
+# Access at: http://YOUR_SERVER_IP:9615
+```
+
+Or use PM2 Plus (cloud monitoring):
+
+```bash
+pm2 link YOUR_SECRET_KEY YOUR_PUBLIC_KEY
 ```
 
 ## Environment Variables (Optional)
 
-Jika butuh environment variables, buat file `.env` di server:
+Jika butuh environment variables:
 
 ```bash
 cd /var/www/panca-report-webapp
@@ -252,29 +317,4 @@ API_URL=https://api.example.com
 PORT=4200
 ```
 
-Update `deploy.sh` untuk load env:
-
-```bash
-# Add before npm run build
-export $(cat .env | xargs)
-```
-
-## Security Notes
-
-- Jangan commit SSH private key ke repository
-- Gunakan SSH key khusus untuk deployment (bukan personal key)
-- Restrict SSH key permissions: `chmod 600 ~/.ssh/id_rsa`
-- Consider using GitHub Deploy Keys untuk read-only access
-- Setup firewall: `sudo ufw allow 22,80,443/tcp`
-
-## Monitoring
-
-Setup PM2 monitoring:
-
-```bash
-# Link PM2 to monitoring service (optional)
-pm2 link YOUR_SECRET_KEY YOUR_PUBLIC_KEY
-
-# Or use PM2 web interface
-pm2 web
-```
+Update `deploy.sh` untuk load env variables sebelum build.
