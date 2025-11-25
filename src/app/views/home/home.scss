@@ -1,0 +1,112 @@
+.home-container {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 60px;
+
+    h1 {
+        font-size: 42px;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitle {
+        font-size: 18px;
+        opacity: 0.95;
+        margin: 0;
+    }
+}
+
+.reports-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.report-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    ::ng-deep .p-card-body {
+        padding: 0;
+    }
+
+    ::ng-deep .p-card-content {
+        padding: 0;
+    }
+
+    .card-content {
+        padding: 30px;
+        text-align: center;
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+            i {
+                font-size: 36px;
+                color: white;
+            }
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin: 0 0 25px 0;
+            line-height: 1.6;
+        }
+
+        .view-button {
+            text-decoration: none;
+
+            ::ng-deep .p-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        h1 {
+            font-size: 32px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+        }
+    }
+
+    .reports-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

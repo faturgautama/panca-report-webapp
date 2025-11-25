@@ -1,0 +1,23 @@
+<div class="home-container">
+    <div class="header">
+        <h1>Panca Report System</h1>
+        <p class="subtitle">Sistem Pelaporan PT. Panca Usaha Sejahtera</p>
+    </div>
+
+    <div class="reports-grid">
+        @for (report of reports(); track report.route) {
+        <p-card class="report-card">
+            <div class="card-content">
+                <div class="icon-wrapper" [style.background-color]="report.color">
+                    <i class="pi" [ngClass]="report.icon"></i>
+                </div>
+                <h3>{{ report.title }}</h3>
+                <p>{{ report.description }}</p>
+                <a [routerLink]="report.route" class="view-button">
+                    <p-button label="Lihat Report" icon="pi pi-arrow-right" iconPos="right" />
+                </a>
+            </div>
+        </p-card>
+        }
+    </div>
+</div>

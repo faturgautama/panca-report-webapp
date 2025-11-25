@@ -1,0 +1,84 @@
+<div class="print-container">
+    @if (loading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Memuat data...</p>
+    </div>
+    }
+
+    @if (error()) {
+    <div class="error-state">
+        <h2>Error</h2>
+        <p>{{ error() }}</p>
+    </div>
+    }
+
+    @if (data(); as sj) {
+    <div class="no-print print-button-container">
+        <button (click)="print()" class="print-button">
+            <i class="pi pi-print"></i> Print
+        </button>
+    </div>
+
+    <div class="report-content">
+        <!-- Header Section -->
+        <div class="header-section">
+            <div class="left-info">
+                <div>{{ formatDate(sj.tanggal) }}</div>
+                <div>{{ sj.nomorSurat }}</div>
+                <div>-</div>
+                <div>{{ sj.user }} - {{ sj.timestamp }}</div>
+            </div>
+
+            <div class="right-info">
+                <div>{{ sj.customer.nama }}</div>
+                <div>{{ sj.customer.alamat }}</div>
+                <div>{{ sj.customer.kota }}</div>
+                <div>{{ sj.customer.kode }}</div>
+            </div>
+        </div>
+
+        <!-- Sales for PUS2 (before items) -->
+        @if (sj.type === 'PUS2') {
+        <div class="sales-info-top">
+            Sales : {{ sj.sales }}
+        </div>
+        }
+
+        <!-- Items Section -->
+        <div class="items-section">
+            @for (item of sj.items; track item.kodeBarang) {
+            <div class="item-row">
+                <span class="col-kode">{{ item.kodeBarang }}</span>
+                <span class="col-nama">{{ item.namaBarang }}</span>
+                <span class="col-panjang">{{ formatNumber(item.panjang) }}</span>
+
+                @if (sj.type === 'PUS2') {
+                <span class="col-qty">{{ formatNumber(item.qty || 0) }}</span>
+                <span class="col-qty-batang">{{ formatNumber(item.qtyBatang || 0) }}</span>
+                }
+
+                <span class="col-jumlah">{{ formatNumber(item.jumlah) }}</span>
+                <span class="col-status">{{ item.status }}</span>
+                <span class="col-urutan">{{ item.urutan }}</span>
+            </div>
+            }
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer-section">
+            <!-- Sales for PUS1 (after items, centered) -->
+            @if (sj.type === 'PUS1') {
+            <div class="sales-info-center">
+                Sales : {{ sj.sales }}
+            </div>
+            }
+
+            <!-- Tujuan -->
+            <div class="tujuan-info">
+                Tb Maruf - {{ sj.tujuan }}
+            </div>
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,114 @@
+<div class="print-container">
+    @if (loading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Memuat data...</p>
+    </div>
+    }
+
+    @if (error()) {
+    <div class="error-state">
+        <h2>Error</h2>
+        <p>{{ error() }}</p>
+    </div>
+    }
+
+    @if (data(); as surat) {
+    <!-- Print Button - Hidden saat print -->
+    <div class="no-print print-button-container">
+        <button (click)="print()" class="print-button">
+            <i class="pi pi-print"></i> Print
+        </button>
+    </div>
+
+    <!-- Report Content -->
+    <div class="report-content">
+        <!-- Title -->
+        <div class="report-title">
+            <h1>SURAT PESANAN</h1>
+        </div>
+
+        <!-- Header Info -->
+        <div class="header-section">
+            <div class="left-info">
+                <div class="info-row">
+                    <span class="label">No. SP</span>
+                    <span class="separator">:</span>
+                    <span class="value">{{ surat.nomorSP }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Tanggal</span>
+                    <span class="separator">:</span>
+                    <span class="value">{{ formatDate(surat.tanggal) }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Konsumen</span>
+                    <span class="separator">:</span>
+                    <span class="value">{{ surat.konsumen }} @if (surat.nomorKonsumen) {({{ surat.nomorKonsumen
+                        }})}</span>
+                </div>
+            </div>
+
+            <div class="right-box">
+                <div class="doc-info">
+                    <div class="doc-row">
+                        <span class="doc-label">No doc :</span>
+                        <span class="doc-value">{{ surat.noDoc || '' }}</span>
+                    </div>
+                    <div class="doc-row">
+                        <span class="doc-label">Terbit :</span>
+                        <span class="doc-value">{{ surat.terbit || '' }}</span>
+                        <span class="doc-label">Rev :</span>
+                        <span class="doc-value">{{ surat.rev || '' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="items-section">
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th class="col-no">No</th>
+                        <th class="col-kode">Kode Barang</th>
+                        <th class="col-nama">Nama Barang</th>
+                        <th class="col-pjg">Pjg</th>
+                        <th class="col-qty">Qty</th>
+                        <th class="col-jumlah">Jumlah</th>
+                        <th class="col-notes">Notes Printing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of surat.items; track item.no) {
+                    <tr>
+                        <td class="text-center">{{ item.no }}</td>
+                        <td>{{ item.kodeBarang }}</td>
+                        <td>{{ item.namaBarang }}</td>
+                        <td class="text-right">{{ formatNumber(item.pjg) }}</td>
+                        <td class="text-center">{{ item.qty }}</td>
+                        <td class="text-right">{{ formatNumber(item.jumlah) }}</td>
+                        <td>{{ item.notesPrinting || '' }}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Keterangan Section -->
+        <div class="keterangan-section">
+            <div class="keterangan-label">KETERANGAN :</div>
+            <div class="keterangan-content">
+                {{ surat.keterangan || '' }}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        @if (surat.createdAt && surat.createdBy) {
+        <div class="footer-section">
+            {{ formatDateTime(surat.createdAt) }} - {{ surat.createdBy }}
+        </div>
+        }
+    </div>
+    }
+</div>
