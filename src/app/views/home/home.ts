@@ -41,6 +41,13 @@ export class Home {
       icon: 'pi-truck',
       route: '/report/surat-jalan/pus2/1',
       color: '#e74c3c'
+    },
+    {
+      title: 'Invoice',
+      description: 'Cetak faktur penjualan / invoice',
+      icon: 'pi-money-bill',
+      route: '/report/invoice/1',
+      color: '#f39c12'
     }
   ]);
 }

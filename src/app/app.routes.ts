@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './views/home/home';
 import { SuratPesananPrintComponent } from './views/surat-pesanan/surat-pesanan-print.component';
 import { SuratJalanPrintComponent } from './views/surat-jalan/surat-jalan-print.component';
+import { InvoicePrintComponent } from './views/invoice/invoice-print.component';
 
 export const routes: Routes = [
     {
@@ -15,5 +16,9 @@ export const routes: Routes = [
     {
         path: 'report/surat-jalan/:type/:id',
         component: SuratJalanPrintComponent
+    },
+    {
+        path: 'report/invoice/:id',
+        component: InvoicePrintComponent
     }
 ];

@@ -1,0 +1,221 @@
+<div class="print-container">
+    @if (loading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Memuat data...</p>
+    </div>
+    }
+
+    @if (error()) {
+    <div class="error-state">
+        <h2>Error</h2>
+        <p>{{ error() }}</p>
+    </div>
+    }
+
+    @if (data(); as invoice) {
+    <div class="no-print print-button-container">
+        <button (click)="print()" class="print-button">
+            <i class="pi pi-print"></i> Print
+        </button>
+    </div>
+
+    <div class="report-content">
+        <!-- Header with Logo -->
+        <div class="header-section">
+            <div class="logo-section">
+                <div class="logo-placeholder">
+                    <div class="logo-stripes">
+                        <div class="stripe blue"></div>
+                        <div class="stripe red"></div>
+                        <div class="stripe blue"></div>
+                    </div>
+                </div>
+                <div class="invoice-label">
+                    <strong>FAKTUR PENJUALAN</strong><br>
+                    <em>INVOICE</em>
+                </div>
+            </div>
+
+            <div class="company-info">
+                <div class="faktur-number">{{ invoice.nomorFaktur }}</div>
+                <div class="registered-label">Pengusaha Kena Pajak / <em>VAT Registered Company</em></div>
+                <div class="info-row">
+                    <span class="label">Nama<br><em>/ Name</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.penjual.nama }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Alamat<br><em>/ Address</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.penjual.alamat }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">NPWP<br><em>/ Tax Id No</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.penjual.npwp }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buyer and Invoice Info -->
+        <div class="middle-section">
+            <div class="buyer-box">
+                <div class="box-title">Pembeli Barang Kena Pajak / <em>Purchase Of Taxable Goods</em></div>
+                <div class="info-row">
+                    <span class="label">Nama / <em>Name</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.pembeli.nama }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Alamat / <em>Address</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.pembeli.alamat }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">NPWP / <em>Tax Id No</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.pembeli.npwp }}</span>
+                </div>
+                <div class="original-label">ORIGINAL</div>
+            </div>
+
+            <div class="invoice-details">
+                <div class="detail-title">Nomor Faktur Penjualan<br><em>Invoice No.</em></div>
+                <div class="invoice-number">{{ invoice.nomorInvoice }}</div>
+
+                <div class="detail-row">
+                    <span class="label">Tanggal Faktur / <em>Invoice Date</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ formatDate(invoice.tanggalFaktur) }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">No. Order / <em>Order No</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.nomorOrder }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Surat Jalan / <em>Delivery Note</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.suratJalan }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Syarat Pembayaran / <em>Payment Terms</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.syaratPembayaran }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Jatuh Tempo / <em>Due Date</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ formatDate(invoice.jatuhTempo) }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Mata Uang / <em>Currency</em></span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ invoice.mataUang }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th class="col-no">No<br><em>No.</em></th>
+                    <th class="col-nama">Nama Barang Kena Pajak<br><em>Name of Taxable Goods</em></th>
+                    <th class="col-panjang">Panjang<br><em>Length</em></th>
+                    <th class="col-qty">Qty<br><em>Quantity</em></th>
+                    <th class="col-jumlah">Jumlah<br><em>Amount</em></th>
+                    <th class="col-harga">Harga Satuan<br><em>Unit Price</em></th>
+                    <th class="col-subtotal">Sub Total<br><em>Sub Total</em></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of invoice.items; track item.no) {
+                <tr>
+                    <td class="text-center">{{ item.no }}</td>
+                    <td>{{ item.namaBarang }}</td>
+                    <td class="text-right">{{ formatNumber(item.panjang) }}</td>
+                    <td class="text-right">{{ formatNumber(item.qty) }}</td>
+                    <td class="text-right">{{ formatNumber(item.jumlah) }}</td>
+                    <td class="text-right">{{ formatCurrency(item.hargaSatuan) }}</td>
+                    <td class="text-right">{{ formatCurrency(item.subTotal) }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Summary -->
+        <div class="summary-section">
+            <div class="summary-row">
+                <span class="label">Harga Jual / <em>Using Muka / Termin / Due Payable Sales Amount / Down Payment /
+                        Terms</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount">{{ formatCurrency(invoice.hargaJual) }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Dikurangi Uang Muka / <em>Deduct Deposit</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount">{{ formatCurrency(invoice.diskonUangMuka) }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Koreksi / <em>Corrections</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount">{{ formatCurrency(invoice.koreksi) }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Dikurangi Uang Muka / <em>Tax Imposition Basis</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount">{{ formatCurrency(invoice.dikurangiUangMuka) }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Pajak Penjualan atas Barang Mewah / <em>Sales Tax on Luxurious Goods</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount"></span>
+            </div>
+            <div class="summary-row highlight">
+                <span class="label">PPN = 10% x Dasar Pengenaan Pajak / <em>VAT = 10% X Tax Imposition Basis</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount">{{ formatCurrency(invoice.pajakPenjualan) }}</span>
+            </div>
+            <div class="summary-row total">
+                <span class="label">Total Harga Jual termasuk PPN / <em>Total Payable Include VAT</em></span>
+                <span class="currency">IDR</span>
+                <span class="amount">{{ formatCurrency(invoice.totalHargaJual) }}</span>
+            </div>
+        </div>
+
+        <!-- Payment Note -->
+        <div class="payment-note">
+            Harap mencantumkan No. Faktur Penjualan pada saat pembayaran. Tanda terima akan diberikan berdasarkan
+            permintaan /<br>
+            <em>Please quote our invoice number upon payment. Receipt will be issued on request</em>
+        </div>
+
+        <!-- Bank Transfer Info -->
+        <div class="bank-section">
+            <div class="bank-label">
+                Pembayaran dapat dilakukan melalui transfer ke /<br>
+                <em>Payment of this invoice can be made by transfer to :</em>
+            </div>
+            <div class="bank-info">
+                <div class="bank-name">{{ invoice.bankTransfer.nama }}</div>
+                <div class="bank-type">{{ invoice.bankTransfer.jenis }}</div>
+                <div class="bank-account">{{ invoice.bankTransfer.noRekening }}</div>
+            </div>
+            <div class="payment-location">
+                {{ invoice.lokasi }}, {{ formatDate(invoice.tanggalPembayaran) }}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-section">
+            <div class="company-name">{{ invoice.companyFooter.nama }}</div>
+            <div class="contact-info">
+                Phone : {{ invoice.companyFooter.phone }} , Fax : {{ invoice.companyFooter.fax }}
+            </div>
+            <div class="page-number">Page 1 of 1</div>
+        </div>
+    </div>
+    }
+</div>
