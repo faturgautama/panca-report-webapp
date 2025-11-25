@@ -3,6 +3,7 @@ import { Home } from './views/home/home';
 import { SuratPesananPrintComponent } from './views/surat-pesanan/surat-pesanan-print.component';
 import { SuratJalanPrintComponent } from './views/surat-jalan/surat-jalan-print.component';
 import { InvoicePrintComponent } from './views/invoice/invoice-print.component';
+import { ProduksiPullPrintComponent } from './views/produksi-pull/produksi-pull-print.component';
 
 export const routes: Routes = [
     {
@@ -20,5 +21,9 @@ export const routes: Routes = [
     {
         path: 'report/invoice/:id',
         component: InvoicePrintComponent
+    },
+    {
+        path: 'report/produksi-pull/:id',
+        component: ProduksiPullPrintComponent
     }
 ];

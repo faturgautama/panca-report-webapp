@@ -48,6 +48,13 @@ export class Home {
       icon: 'pi-money-bill',
       route: '/report/invoice/1',
       color: '#f39c12'
+    },
+    {
+      title: 'Produksi Pull',
+      description: 'Cetak DO keluar bahan baku & catatan produksi',
+      icon: 'pi-cog',
+      route: '/report/produksi-pull/1',
+      color: '#9b59b6'
     }
   ]);
 }

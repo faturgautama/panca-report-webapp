@@ -1,0 +1,147 @@
+<div class="print-container">
+    @if (loading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Memuat data...</p>
+    </div>
+    }
+
+    @if (error()) {
+    <div class="error-state">
+        <h2>Error</h2>
+        <p>{{ error() }}</p>
+    </div>
+    }
+
+    @if (data(); as report) {
+    <div class="no-print print-button-container">
+        <button (click)="print()" class="print-button">
+            <i class="pi pi-print"></i> Print
+        </button>
+    </div>
+
+    <div class="report-content">
+        <!-- Section 1: DO KELUAR BAHAN BAKU -->
+        <div class="do-section">
+            <h2 class="section-title">DO KELUAR BAHAN BAKU PRODUKSI PULL</h2>
+
+            <div class="do-header">
+                <div class="header-row">
+                    <span class="label">No. DO</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ report.doKeluarBahanBaku.noDO }}</span>
+                </div>
+                <div class="header-row">
+                    <span class="label">Tanggal</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ formatDate(report.doKeluarBahanBaku.tanggal) }}</span>
+                </div>
+                <div class="header-row">
+                    <span class="label">No. SP</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ report.doKeluarBahanBaku.noSP }}</span>
+                </div>
+            </div>
+
+            <table class="do-table">
+                <thead>
+                    <tr>
+                        <th class="col-no">No.</th>
+                        <th class="col-kode-koil">Kode Koil</th>
+                        <th class="col-kode-barang">Kode Barang</th>
+                        <th class="col-nama-barang">Nama Barang</th>
+                        <th class="col-jumlah">Jumlah</th>
+                        <th class="col-empty"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of report.doKeluarBahanBaku.items; track item.no) {
+                    <tr>
+                        <td class="text-center">{{ item.no }}</td>
+                        <td>{{ item.kodeKoil }}</td>
+                        <td>{{ item.kodeBarang }}</td>
+                        <td>{{ item.namaBarang }}</td>
+                        <td class="text-right">{{ formatNumber(item.jumlah) }}</td>
+                        <td></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="do-footer">
+                {{ report.doKeluarBahanBaku.timestamp }} {{ report.doKeluarBahanBaku.user }}
+            </div>
+        </div>
+
+        <!-- Section 2: CATATAN PRODUKSI -->
+        <div class="produksi-section">
+            <div class="produksi-header">
+                <div class="header-left">
+                    <div class="header-row">
+                        <span class="label">No. Produksi</span>
+                        <span class="colon">:</span>
+                        <span class="value">{{ report.catatanProduksi.noProduksi }}</span>
+                    </div>
+                    <div class="header-row">
+                        <span class="label">Tgl. Produksi</span>
+                        <span class="colon">:</span>
+                        <span class="value">{{ formatDate(report.catatanProduksi.tglProduksi) }}</span>
+                    </div>
+                    <div class="header-row">
+                        <span class="label">Operator</span>
+                        <span class="colon">:</span>
+                        <span class="value">{{ report.catatanProduksi.operator }}</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-row">
+                        <span class="label">Halaman</span>
+                        <span class="colon">:</span>
+                        <span class="value">{{ report.catatanProduksi.halaman }}</span>
+                    </div>
+                    <div class="header-row">
+                        <span class="label">Tanggal</span>
+                        <span class="colon">:</span>
+                        <span class="value">{{ formatDate(report.catatanProduksi.tanggalHalaman) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="produksi-title">CATATAN PRODUKSI</h3>
+
+            <table class="produksi-table">
+                <thead>
+                    <tr>
+                        <th class="col-no-coil">NO<br>COIL</th>
+                        <th class="col-jenis">JENIS</th>
+                        <th class="col-berat">BERAT KOIL<br>(Kg)</th>
+                        <th class="col-lebar">LEBAR<br>(mm)</th>
+                        <th class="col-swg">SWG/<br>TEBAL</th>
+                        <th class="col-type">TYPE</th>
+                        <th class="col-lembar">LEMBAR</th>
+                        <th class="col-panjang">PANJANG<br>m³</th>
+                        <th class="col-hasil">HASIL</th>
+                        <th class="col-paraf">PARAF<br>OPERATOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of report.catatanProduksi.items; track item.noCoil) {
+                    <tr>
+                        <td>{{ item.noCoil }}</td>
+                        <td>{{ item.jenis }}</td>
+                        <td class="text-right">{{ formatNumber(item.beratKoil) }}</td>
+                        <td class="text-center">{{ item.lebar }}</td>
+                        <td class="text-right">{{ formatNumber(item.swgTebal) }}</td>
+                        <td>{{ item.type }}</td>
+                        <td class="text-right">{{ formatNumber(item.lembar) }}</td>
+                        <td class="text-right">{{ formatNumber(item.panjang) }}</td>
+                        <td class="text-center">{{ item.hasil }}</td>
+                        <td>{{ item.parafOperator }}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+</div>
