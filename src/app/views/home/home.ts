@@ -55,6 +55,13 @@ export class Home {
       icon: 'pi-cog',
       route: '/report/produksi-pull/1',
       color: '#9b59b6'
+    },
+    {
+      title: 'Produksi WIP',
+      description: 'Cetak DO keluar, DO masuk & catatan produksi WIP',
+      icon: 'pi-wrench',
+      route: '/report/produksi-wip/1',
+      color: '#1abc9c'
     }
   ]);
 }
