@@ -178,10 +178,8 @@
 }
 
 .footer-section {
-    position: absolute;
-    bottom: 3mm;
-    left: 7mm;
-    right: 10mm;
+    margin-top: 20mm;
+    margin-left: -3mm;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -191,14 +189,15 @@
         line-height: 1.2;
         flex: 1;
         max-width: 120mm;
+        padding-left: 1mm;
     }
 
     .sales-info {
         font-size: 9px;
         text-align: center;
-        position: absolute;
-        right: 90mm;
-        bottom: 0;
+        flex: 0 0 auto;
+        margin-left: auto;
+        padding-right: 50mm;
     }
 }
 
