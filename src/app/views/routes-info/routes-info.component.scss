@@ -1,0 +1,212 @@
+.routes-info-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h1 {
+        font-size: 32px;
+        color: #2c3e50;
+        margin: 0 0 10px 0;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        color: #7f8c8d;
+        margin: 0 0 20px 0;
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: background 0.3s;
+
+        &:hover {
+            background: #2980b9;
+        }
+    }
+}
+
+.routes-table {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 40px;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead {
+            background: #34495e;
+            color: white;
+
+            th {
+                padding: 15px 12px;
+                text-align: left;
+                font-weight: 600;
+                font-size: 14px;
+            }
+        }
+
+        tbody {
+            tr {
+                border-bottom: 1px solid #ecf0f1;
+                transition: background 0.2s;
+
+                &:hover {
+                    background: #f8f9fa;
+                }
+
+                td {
+                    padding: 12px;
+                    font-size: 13px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .report-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .path-pattern {
+            code {
+                background: #ecf0f1;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-family: 'Courier New', monospace;
+                font-size: 12px;
+                color: #e74c3c;
+            }
+        }
+
+        .paper-size {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .description {
+            color: #555;
+        }
+
+        .example {
+            .example-link {
+                color: #3498db;
+                text-decoration: none;
+                font-family: 'Courier New', monospace;
+                font-size: 12px;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .actions {
+            text-align: center;
+
+            button,
+            a {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 18px;
+                margin: 0 5px;
+                padding: 5px;
+                transition: transform 0.2s;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+
+            .copy-btn {
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+
+            .view-btn {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.info-section {
+    h2 {
+        font-size: 24px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+            h3 {
+                font-size: 18px;
+                color: #34495e;
+                margin: 0 0 10px 0;
+            }
+
+            p {
+                color: #555;
+                line-height: 1.6;
+                margin: 0 0 10px 0;
+            }
+
+            code {
+                background: #ecf0f1;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-family: 'Courier New', monospace;
+                font-size: 13px;
+                color: #e74c3c;
+            }
+
+            ul {
+                margin: 10px 0;
+                padding-left: 20px;
+
+                li {
+                    color: #555;
+                    line-height: 1.8;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .routes-table {
+        overflow-x: auto;
+
+        table {
+            min-width: 1000px;
+        }
+    }
+}

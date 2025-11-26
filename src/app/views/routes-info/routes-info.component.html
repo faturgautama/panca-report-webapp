@@ -1,0 +1,78 @@
+<div class="routes-info-container">
+    <div class="header">
+        <h1>📋 Dokumentasi Routing Report</h1>
+        <p class="subtitle">Daftar semua URL dan report yang tersedia di sistem</p>
+        <a routerLink="/" class="back-button">← Kembali ke Home</a>
+    </div>
+
+    <div class="routes-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Report</th>
+                    <th>Path Pattern</th>
+                    <th>Ukuran Kertas</th>
+                    <th>Deskripsi</th>
+                    <th>Contoh URL</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (route of routes(); track route.path; let i = $index) {
+                <tr>
+                    <td class="text-center">{{ i + 1 }}</td>
+                    <td class="report-name">{{ route.reportName }}</td>
+                    <td class="path-pattern">
+                        <code>{{ route.path }}</code>
+                    </td>
+                    <td class="paper-size">{{ route.paperSize }}</td>
+                    <td class="description">{{ route.description }}</td>
+                    <td class="example">
+                        <a [routerLink]="route.example" target="_blank" class="example-link">
+                            {{ route.example }}
+                        </a>
+                    </td>
+                    <td class="actions">
+                        <button (click)="copyToClipboard(route.example)" class="copy-btn" title="Copy URL">
+                            📋
+                        </button>
+                        <a [routerLink]="route.example" target="_blank" class="view-btn" title="Lihat Report">
+                            👁️
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info-section">
+        <h2>ℹ️ Informasi Tambahan</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>Parameter :id</h3>
+                <p>Semua route menggunakan parameter <code>:id</code> untuk mengidentifikasi data yang akan ditampilkan.
+                </p>
+                <p>Contoh: <code>/report/invoice/123</code> akan menampilkan invoice dengan ID 123.</p>
+            </div>
+            <div class="info-card">
+                <h3>Printer Compatibility</h3>
+                <p>Semua report sudah dioptimasi untuk printer dot matrix Epson LX-310 dengan:</p>
+                <ul>
+                    <li>Font: Courier New (monospace)</li>
+                    <li>Border: 1px (tipis)</li>
+                    <li>Font size: 9-11px</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>Blangko</h3>
+                <p>Surat Jalan PUS1 dan PUS2 menggunakan blangko pre-printed dengan ukuran khusus:</p>
+                <ul>
+                    <li>PUS1: 21.5cm x 14cm (blangko kuning)</li>
+                    <li>PUS2: 21.5cm x 16cm (blangko merah muda)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

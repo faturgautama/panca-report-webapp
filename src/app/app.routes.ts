@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './views/home/home';
+import { RoutesInfoComponent } from './views/routes-info/routes-info.component';
 import { SuratPesananPrintComponent } from './views/surat-pesanan/surat-pesanan-print.component';
 import { SuratJalanPus1PrintComponent } from './views/surat-jalan-pus1/surat-jalan-pus1-print.component';
 import { SuratJalanPus2PrintComponent } from './views/surat-jalan-pus2/surat-jalan-pus2-print.component';
@@ -12,6 +13,10 @@ export const routes: Routes = [
     {
         path: '',
         component: Home
+    },
+    {
+        path: 'routes-info',
+        component: RoutesInfoComponent
     },
     {
         path: 'report/surat-pesanan/:id',
