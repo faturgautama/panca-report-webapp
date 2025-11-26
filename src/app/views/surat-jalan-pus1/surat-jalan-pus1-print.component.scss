@@ -6,6 +6,8 @@
     background: white;
     font-family: 'Courier New', monospace;
     position: relative;
+    direction: ltr;
+    writing-mode: horizontal-tb;
 }
 
 .loading-state,
@@ -72,6 +74,8 @@
     padding: 8mm 10mm;
     height: 100%;
     box-sizing: border-box;
+    direction: ltr;
+    writing-mode: horizontal-tb;
 }
 
 .header-section {
@@ -114,38 +118,46 @@
 
     .item-row {
         display: flex;
-        gap: 3px;
+        gap: 5px;
         margin-bottom: 3mm;
         line-height: 1.2;
         font-size: 9px;
+        align-items: flex-start;
+
+        span {
+            word-break: normal;
+            white-space: normal;
+            overflow-wrap: normal;
+        }
 
         .col-kode {
-            flex: 0 0 80px;
-            overflow: hidden;
+            flex: 0 0 85px;
+            max-width: 85px;
         }
 
         .col-nama {
-            flex: 1;
+            flex: 1 1 auto;
             min-width: 0;
+            max-width: 200px;
         }
 
         .col-jumlah {
-            flex: 0 0 45px;
-            text-align: right;
-        }
-
-        .col-panjang {
-            flex: 0 0 45px;
-            text-align: right;
-        }
-
-        .col-total {
             flex: 0 0 50px;
             text-align: right;
         }
 
+        .col-panjang {
+            flex: 0 0 50px;
+            text-align: right;
+        }
+
+        .col-total {
+            flex: 0 0 55px;
+            text-align: right;
+        }
+
         .col-keterangan {
-            flex: 0 0 80px;
+            flex: 0 0 85px;
             text-align: center;
         }
     }
@@ -180,14 +192,16 @@
         padding: 0;
         margin: 0;
         font-family: 'Courier New', monospace;
+        transform: none;
     }
 
     .report-content {
         page-break-after: avoid;
+        transform: none;
     }
 
     @page {
-        size: 215mm 140mm;
+        size: 215mm 140mm landscape;
         margin: 0;
     }
 
