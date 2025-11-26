@@ -62,4 +62,12 @@ export class SuratJalanMockService {
             nomorSurat: `${88732 + parseInt(id)} - 10-11-2025`
         }).pipe(delay(800));
     }
+
+    getSuratJalanPUS1(id: string): Observable<SuratJalan> {
+        return this.getSuratJalanById(id, 'PUS1');
+    }
+
+    getSuratJalanPUS2(id: string): Observable<SuratJalan> {
+        return this.getSuratJalanById(id, 'PUS2');
+    }
 }

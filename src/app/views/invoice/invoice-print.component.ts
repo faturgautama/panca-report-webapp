@@ -36,7 +36,7 @@ export class InvoicePrintComponent implements OnInit {
             next: (data) => {
                 this.data.set(data);
                 this.loading.set(false);
-                setTimeout(() => window.print(), 500);
+                // setTimeout(() => window.print(), 500);
             },
             error: (err) => {
                 this.error.set('Gagal memuat data: ' + err.message);

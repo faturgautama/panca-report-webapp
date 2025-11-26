@@ -80,29 +80,32 @@
     margin-bottom: 25mm;
     padding-top: 2mm;
 
-    .left-info,
+    .left-info {
+        width: 45%;
+
+        .info-line {
+            display: flex;
+            margin-bottom: 1mm;
+            line-height: 1.3;
+            font-size: 10px;
+
+            .spacer {
+                display: inline-block;
+                width: 60px;
+            }
+        }
+    }
+
     .right-info {
+        width: 45%;
+        text-align: right;
+
         div {
             margin-bottom: 1mm;
             line-height: 1.3;
             font-size: 10px;
         }
     }
-
-    .left-info {
-        width: 45%;
-    }
-
-    .right-info {
-        width: 45%;
-        text-align: right;
-    }
-}
-
-.sales-info-top {
-    margin-bottom: 8mm;
-    font-weight: normal;
-    font-size: 10px;
 }
 
 .items-section {
@@ -132,27 +135,17 @@
         }
 
         .col-panjang {
-            flex: 0 0 40px;
-            text-align: right;
-        }
-
-        .col-qty {
-            flex: 0 0 40px;
-            text-align: right;
-        }
-
-        .col-qty-batang {
             flex: 0 0 45px;
             text-align: right;
         }
 
-        .col-status {
+        .col-total {
             flex: 0 0 50px;
-            text-align: center;
+            text-align: right;
         }
 
-        .col-urutan {
-            flex: 0 0 25px;
+        .col-keterangan {
+            flex: 0 0 80px;
             text-align: center;
         }
     }
@@ -160,20 +153,19 @@
 
 .footer-section {
     position: absolute;
-    bottom: 15mm;
+    bottom: 12mm;
     left: 10mm;
     right: 10mm;
-
-    .sales-info-center {
-        text-align: center;
-        margin-bottom: 8mm;
-        font-weight: normal;
-        font-size: 10px;
-    }
 
     .tujuan-info {
         font-size: 9px;
         line-height: 1.3;
+        margin-bottom: 5mm;
+    }
+
+    .sales-info {
+        text-align: center;
+        font-size: 10px;
     }
 }
 
@@ -183,7 +175,8 @@
     }
 
     .print-container {
-        max-width: 100%;
+        width: 100%;
+        height: 100%;
         padding: 0;
         margin: 0;
         font-family: 'Courier New', monospace;
@@ -191,8 +184,6 @@
 
     .report-content {
         page-break-after: avoid;
-        font-size: 12px;
-        line-height: 1.3;
     }
 
     @page {

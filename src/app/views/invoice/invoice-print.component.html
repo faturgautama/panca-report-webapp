@@ -38,20 +38,21 @@
             </div>
 
             <div class="company-info">
-                <div class="faktur-number">{{ invoice.nomorFaktur }}</div>
-                <div class="registered-label">Pengusaha Kena Pajak / <em>VAT Registered Company</em></div>
+                <div class="faktur-number" style="text-align: right;">{{ invoice.nomorFaktur }}</div>
+                <div class="registered-label" style="text-align: right;">Pengusaha Kena Pajak / <em>VAT Registered
+                        Company</em></div>
                 <div class="info-row">
-                    <span class="label">Nama<br><em>/ Name</em></span>
+                    <span class="label" style="text-align: right;">Nama<br><em>/ Name</em></span>
                     <span class="colon">:</span>
                     <span class="value">{{ invoice.penjual.nama }}</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">Alamat<br><em>/ Address</em></span>
+                    <span class="label" style="text-align: right;">Alamat<br><em>/ Address</em></span>
                     <span class="colon">:</span>
                     <span class="value">{{ invoice.penjual.alamat }}</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">NPWP<br><em>/ Tax Id No</em></span>
+                    <span class="label" style="text-align: right;">NPWP<br><em>/ Tax Id No</em></span>
                     <span class="colon">:</span>
                     <span class="value">{{ invoice.penjual.npwp }}</span>
                 </div>
@@ -214,7 +215,7 @@
             <div class="contact-info">
                 Phone : {{ invoice.companyFooter.phone }} , Fax : {{ invoice.companyFooter.fax }}
             </div>
-            <div class="page-number">Page 1 of 1</div>
+            <!-- <div class="page-number">Page 1 of 1</div> -->
         </div>
     </div>
     }

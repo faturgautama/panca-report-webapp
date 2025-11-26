@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { Home } from './views/home/home';
 import { SuratPesananPrintComponent } from './views/surat-pesanan/surat-pesanan-print.component';
-import { SuratJalanPrintComponent } from './views/surat-jalan/surat-jalan-print.component';
+import { SuratJalanPus1PrintComponent } from './views/surat-jalan-pus1/surat-jalan-pus1-print.component';
+import { SuratJalanPus2PrintComponent } from './views/surat-jalan-pus2/surat-jalan-pus2-print.component';
 import { InvoicePrintComponent } from './views/invoice/invoice-print.component';
 import { ProduksiPullPrintComponent } from './views/produksi-pull/produksi-pull-print.component';
 import { ProduksiWIPPrintComponent } from './views/produksi-wip/produksi-wip-print.component';
@@ -17,8 +18,12 @@ export const routes: Routes = [
         component: SuratPesananPrintComponent
     },
     {
-        path: 'report/surat-jalan/:type/:id',
-        component: SuratJalanPrintComponent
+        path: 'report/surat-jalan/pus1/:id',
+        component: SuratJalanPus1PrintComponent
+    },
+    {
+        path: 'report/surat-jalan/pus2/:id',
+        component: SuratJalanPus2PrintComponent
     },
     {
         path: 'report/invoice/:id',

@@ -24,10 +24,22 @@
         <!-- Header Section -->
         <div class="header-section">
             <div class="left-info">
-                <div>{{ formatDate(sj.tanggal) }}</div>
-                <div>{{ sj.nomorSurat }}</div>
-                <div>-</div>
-                <div>{{ sj.user }} - {{ sj.timestamp }}</div>
+                <div class="info-line">
+                    <span class="spacer"></span>
+                    <span>{{ formatDate(sj.tanggal) }}</span>
+                </div>
+                <div class="info-line">
+                    <span class="spacer"></span>
+                    <span>{{ sj.nomorSurat }}</span>
+                </div>
+                <div class="info-line">
+                    <span class="spacer"></span>
+                    <span>{{ sj.user }}</span>
+                </div>
+                <div class="info-line">
+                    <span class="spacer"></span>
+                    <span>{{ sj.user }} - {{ sj.timestamp }}</span>
+                </div>
             </div>
 
             <div class="right-info">
@@ -38,53 +50,27 @@
             </div>
         </div>
 
-        <!-- Sales for PUS2 (before items) -->
-        @if (sj.type === 'PUS2') {
-        <div class="sales-info-top">
-            Sales : {{ sj.sales }}
-        </div>
-        }
-
         <!-- Items Section -->
         <div class="items-section">
             @for (item of sj.items; track item.kodeBarang) {
             <div class="item-row">
-                <!-- TYPE BARANG -->
                 <span class="col-kode">{{ item.kodeBarang }}</span>
-
-                <!-- JENIS BARANG -->
                 <span class="col-nama">{{ item.namaBarang }}</span>
-
-                <!-- JUMLAH -->
                 <span class="col-jumlah">{{ formatNumber(item.jumlah) }}</span>
-
-                <!-- PANJANG -->
                 <span class="col-panjang">{{ formatNumber(item.panjang) }}</span>
-
-                @if (sj.type === 'PUS2') {
-                <span class="col-qty">{{ formatNumber(item.qty || 0) }}</span>
-                <span class="col-qty-batang">{{ formatNumber(item.qtyBatang || 0) }}</span>
-                }
-
-                <!-- TOTAL (for PUS1, this is KETERANGAN column) -->
-                <span class="col-status">{{ item.status }}</span>
-                <span class="col-urutan">{{ item.urutan }}</span>
+                <span class="col-total">{{ formatNumber(item.jumlah * item.panjang) }}</span>
+                <span class="col-keterangan">{{ item.status }} {{ item.urutan }}</span>
             </div>
             }
         </div>
 
         <!-- Footer Section -->
         <div class="footer-section">
-            <!-- Sales for PUS1 (after items, centered) -->
-            @if (sj.type === 'PUS1') {
-            <div class="sales-info-center">
-                Sales : {{ sj.sales }}
-            </div>
-            }
-
-            <!-- Tujuan -->
             <div class="tujuan-info">
-                Tb Maruf - {{ sj.tujuan }}
+                Tb {{ sj.customer.nama }} - {{ sj.tujuan }}
+            </div>
+            <div class="sales-info">
+                Sales : {{ sj.sales }}
             </div>
         </div>
     </div>
