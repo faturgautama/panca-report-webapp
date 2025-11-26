@@ -183,9 +183,10 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    padding-right: 15mm;
 
     .tujuan-info {
-        font-size: 8px;
+        font-size: 10px;
         line-height: 1.2;
         flex: 1;
         max-width: 120mm;
@@ -193,7 +194,7 @@
     }
 
     .sales-info {
-        font-size: 9px;
+        font-size: 10px;
         text-align: center;
         flex: 0 0 auto;
         margin-left: auto;
