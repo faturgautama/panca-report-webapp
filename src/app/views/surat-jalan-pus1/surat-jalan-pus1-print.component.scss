@@ -81,7 +81,7 @@
 .header-section {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 18mm;
+    margin-bottom: 12mm;
     padding-top: 2mm;
 
     .left-info {
@@ -115,7 +115,8 @@
 .items-section {
     margin-bottom: 5mm;
     min-height: 35mm;
-    padding-top: 1mm;
+    padding-top: 0;
+    margin-left: -3mm;
 
     .item-row {
         display: flex;
@@ -133,64 +134,71 @@
         }
 
         .col-kode {
-            flex: 0 0 45mm;
-            width: 45mm;
-            max-width: 45mm;
+            flex: 0 0 43mm;
+            width: 43mm;
+            max-width: 43mm;
+            padding-left: 1mm;
         }
 
         .col-nama {
-            flex: 0 0 58mm;
-            width: 58mm;
-            max-width: 58mm;
+            flex: 0 0 56mm;
+            width: 56mm;
+            max-width: 56mm;
+            padding-left: 1mm;
         }
 
         .col-jumlah {
-            flex: 0 0 22mm;
-            width: 22mm;
+            flex: 0 0 20mm;
+            width: 20mm;
             text-align: right;
+            padding-right: 1mm;
         }
 
         .col-panjang {
-            flex: 0 0 22mm;
-            width: 22mm;
+            flex: 0 0 20mm;
+            width: 20mm;
             text-align: right;
+            padding-right: 1mm;
         }
 
         .col-total {
-            flex: 0 0 22mm;
-            width: 22mm;
+            flex: 0 0 20mm;
+            width: 20mm;
             text-align: right;
+            padding-right: 1mm;
         }
 
         .col-keterangan {
-            flex: 0 0 31mm;
-            width: 31mm;
+            flex: 0 0 29mm;
+            width: 29mm;
             text-align: center;
+            padding-left: 1mm;
         }
     }
 }
 
 .footer-section {
     position: absolute;
-    bottom: 8mm;
-    left: 10mm;
+    bottom: 3mm;
+    left: 7mm;
     right: 10mm;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
 
     .tujuan-info {
         font-size: 8px;
         line-height: 1.2;
         flex: 1;
-        padding-right: 10mm;
+        max-width: 120mm;
     }
 
     .sales-info {
         font-size: 9px;
         text-align: center;
-        flex: 0 0 auto;
-        margin-right: 80mm;
+        position: absolute;
+        right: 90mm;
+        bottom: 0;
     }
 }
 
