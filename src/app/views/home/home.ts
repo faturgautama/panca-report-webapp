@@ -62,6 +62,13 @@ export class Home {
       icon: 'pi-wrench',
       route: '/report/produksi-wip/1',
       color: '#1abc9c'
+    },
+    {
+      title: 'SJ Alias',
+      description: 'Cetak faktur penjualan (SJ Alias)',
+      icon: 'pi-receipt',
+      route: '/report/sj-alias/1',
+      color: '#e67e22'
     }
   ]);
 }

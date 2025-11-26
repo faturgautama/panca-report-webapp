@@ -5,6 +5,7 @@ import { SuratJalanPrintComponent } from './views/surat-jalan/surat-jalan-print.
 import { InvoicePrintComponent } from './views/invoice/invoice-print.component';
 import { ProduksiPullPrintComponent } from './views/produksi-pull/produksi-pull-print.component';
 import { ProduksiWIPPrintComponent } from './views/produksi-wip/produksi-wip-print.component';
+import { SJAliasPrintComponent } from './views/sj-alias/sj-alias-print.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +31,9 @@ export const routes: Routes = [
     {
         path: 'report/produksi-wip/:id',
         component: ProduksiWIPPrintComponent
+    },
+    {
+        path: 'report/sj-alias/:id',
+        component: SJAliasPrintComponent
     }
 ];

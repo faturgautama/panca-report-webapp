@@ -1,0 +1,133 @@
+<div class="print-container">
+    <div class="print-button-container no-print">
+        <button class="print-button" (click)="print()">
+            🖨️ Print
+        </button>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Memuat data SJ Alias...</p>
+    </div>
+
+    <div *ngIf="error" class="error-state">
+        <p>{{ error }}</p>
+    </div>
+
+    <div *ngIf="sjAliasData && !isLoading" class="report-content">
+        <!-- Header -->
+        <div class="header-section">
+            <h1 class="title">FAKTUR PENJUALAN</h1>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <div class="info-left">
+                <div class="info-row">
+                    <span class="label">No. SP</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ sjAliasData.noSP }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Konsumen</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ sjAliasData.konsumen }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Alamat</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ sjAliasData.alamat }}</span>
+                </div>
+            </div>
+            <div class="info-right">
+                <div class="info-row">
+                    <span class="label">Tanggal</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ formatDate(sjAliasData.tanggal) }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Jatuh Tempo</span>
+                    <span class="colon">:</span>
+                    <span class="value">{{ formatDate(sjAliasData.jatuhTempo) }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th class="col-qty">QTY</th>
+                    <th class="col-satuan">SATUAN</th>
+                    <th class="col-jenis">JENIS BARANG</th>
+                    <th class="col-panjang">PANJANG</th>
+                    <th class="col-harga">HARGA SATUAN</th>
+                    <th class="col-total">TOTAL HARGA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of sjAliasData.items">
+                    <td class="text-right">{{ formatCurrency(item.qty) }}</td>
+                    <td class="text-center">{{ item.satuan }}</td>
+                    <td>{{ item.jenisBarang }}</td>
+                    <td class="text-right">{{ formatCurrency(item.panjang) }}</td>
+                    <td class="text-right">{{ formatCurrency(item.hargaSatuan) }}</td>
+                    <td class="text-right">{{ formatCurrency(item.totalHarga) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <div class="left-notes">
+                <p>{{ sjAliasData.catatan }}</p>
+            </div>
+            <div class="right-summary">
+                <div class="summary-row">
+                    <span class="label">Grand Total</span>
+                    <span class="value">{{ formatCurrency(sjAliasData.grandTotal) }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">DPP</span>
+                    <span class="value">{{ formatCurrency(sjAliasData.dpp) }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">PPN</span>
+                    <span class="value">{{ formatCurrency(sjAliasData.ppn) }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <div class="signature-label">
+                <p>Tersilang :</p>
+                <p>LIMA JUTA DELAPAN RATUS SEMBILAN PULUH</p>
+                <p>SEMBILAN RIBU DELAPAN RATUS RUPIAH</p>
+            </div>
+            <div class="signature-boxes">
+                <div class="signature-box">
+                    <p class="box-title">Diterima Oleh,</p>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-box">
+                    <p class="box-title">Dikirim Oleh,</p>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-box">
+                    <p class="box-title">Dicek Oleh,</p>
+                    <div class="signature-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Notes -->
+        <div class="footer-notes">
+            <p>* Titipan angsuran tunai wajib ditulis diatas nota, tidak dibalik nota</p>
+            <p>* Pembayaran transfer ke rekening A/N. {{ sjAliasData.bankTransfer.nama }} {{
+                sjAliasData.bankTransfer.jenis }} : {{ sjAliasData.bankTransfer.noRekening }}</p>
+            <p>* Pembayaran diluar rekening diatas atau angsuran tunai tidak ditulis diatas nota, pembayaran tidak sah/
+                gagal</p>
+        </div>
+    </div>
+</div>
