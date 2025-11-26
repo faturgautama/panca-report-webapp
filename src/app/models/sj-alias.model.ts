@@ -18,6 +18,7 @@ export interface SJAlias {
     dpp: number;
     ppn: number;
     catatan: string;
+    terbilang: string;
     bankTransfer: {
         nama: string;
         jenis: string;

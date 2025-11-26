@@ -35,6 +35,7 @@ export class SJAliasMockService {
             dpp: 5315135.14,
             ppn: 584664.86,
             catatan: '* Barang di nota ini dianggap sebagai titipan, dapat ditarik kembali atau diganti barang yang senilai jika pelunasan pembayaran tidak sesuai jatuh tempo',
+            terbilang: 'LIMA JUTA DELAPAN RATUS SEMBILAN PULUH SEMBILAN RIBU DELAPAN RATUS RUPIAH',
             bankTransfer: {
                 nama: 'PT. Panca Usaha Sakti',
                 jenis: 'BCA',
