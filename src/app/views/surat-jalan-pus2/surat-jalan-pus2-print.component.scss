@@ -82,7 +82,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 8mm;
-    padding-top: 2mm;
+    padding-top: 8mm;
 
     .left-info {
         width: 45%;
@@ -113,7 +113,8 @@
 }
 
 .sales-info-top {
-    margin-bottom: 8mm;
+    margin-bottom: 6mm;
+    margin-top: 2mm;
     font-size: 10px;
 }
 
@@ -121,6 +122,7 @@
     margin-bottom: 10mm;
     min-height: 60mm;
     margin-left: -3mm;
+    padding-top: 2mm;
 
     .item-row {
         display: flex;
