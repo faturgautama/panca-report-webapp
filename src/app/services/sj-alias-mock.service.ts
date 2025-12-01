@@ -36,6 +36,7 @@ export class SJAliasMockService {
             ppn: 584664.86,
             catatan: '* Barang di nota ini dianggap sebagai titipan, dapat ditarik kembali atau diganti barang yang senilai jika pelunasan pembayaran tidak sesuai jatuh tempo',
             terbilang: 'LIMA JUTA DELAPAN RATUS SEMBILAN PULUH SEMBILAN RIBU DELAPAN RATUS RUPIAH',
+            footerPayment: '* Titipan angsuran tunai wajib ditulis diatas nota, tidak dibalik nota\n* Pembayaran transfer ke rekening A/N. PT. Panca Usaha Sakti BCA : 182 879 7777\n* Pembayaran diluar rekening diatas atau angsuran tunai tidak ditulis diatas nota, pembayaran tidak sah/gagal',
             bankTransfer: {
                 nama: 'PT. Panca Usaha Sakti',
                 jenis: 'BCA',

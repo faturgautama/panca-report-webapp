@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api.pus-online.com/api', // Sesuaikan dengan URL production API
+    apiUrl: 'http://pus-online.com:1234/api',
     useMock: false // Production selalu menggunakan real API
 };

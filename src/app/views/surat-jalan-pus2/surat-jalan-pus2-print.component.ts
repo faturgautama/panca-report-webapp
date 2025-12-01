@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { SuratJalanMockService } from '../../services/surat-jalan-mock.service';
+import { SuratJalanService } from '../../services/surat-jalan.service';
 import { SuratJalan } from '../../models/surat-jalan.model';
 
 @Component({
@@ -18,7 +18,7 @@ export class SuratJalanPus2PrintComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private suratJalanService: SuratJalanMockService
+        private suratJalanService: SuratJalanService
     ) { }
 
     ngOnInit(): void {
@@ -30,7 +30,7 @@ export class SuratJalanPus2PrintComponent implements OnInit {
         this.loading.set(true);
         this.error.set(null);
 
-        this.suratJalanService.getSuratJalanPUS2(id).subscribe({
+        this.suratJalanService.getSuratJalanById(id, 'PUS2').subscribe({
             next: (data) => {
                 this.data.set(data);
                 this.loading.set(false);

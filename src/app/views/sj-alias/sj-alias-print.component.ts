@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { SJAliasMockService } from '../../services/sj-alias-mock.service';
+import { SJAliasService } from '../../services/sj-alias.service';
 import { SJAlias } from '../../models/sj-alias.model';
 
 @Component({
@@ -18,18 +18,19 @@ export class SJAliasPrintComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private sjAliasService: SJAliasMockService
+        private sjAliasService: SJAliasService
     ) { }
 
     ngOnInit(): void {
-        this.loadData();
+        const id = this.route.snapshot.paramMap.get('id');
+        this.loadData(id || '1');
     }
 
-    loadData(): void {
+    loadData(id: string): void {
         this.isLoading = true;
         this.error = null;
 
-        this.sjAliasService.getSJAliasData().subscribe({
+        this.sjAliasService.getSJAliasById(id).subscribe({
             next: (data) => {
                 this.sjAliasData = data;
                 this.isLoading = false;
@@ -65,5 +66,13 @@ export class SJAliasPrintComponent implements OnInit {
             month: '2-digit',
             day: '2-digit'
         });
+    }
+
+    getFooterPaymentLines(): string[] {
+        if (!this.sjAliasData?.footerPayment) return [];
+        return this.sjAliasData.footerPayment
+            .split(/\r?\n/)
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
     }
 }

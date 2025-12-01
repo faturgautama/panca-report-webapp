@@ -122,11 +122,7 @@
 
         <!-- Footer Notes -->
         <div class="footer-notes">
-            <p>* Titipan angsuran tunai wajib ditulis diatas nota, tidak dibalik nota</p>
-            <p>* Pembayaran transfer ke rekening A/N. {{ sjAliasData.bankTransfer.nama }} {{
-                sjAliasData.bankTransfer.jenis }} : {{ sjAliasData.bankTransfer.noRekening }}</p>
-            <p>* Pembayaran diluar rekening diatas atau angsuran tunai tidak ditulis diatas nota, pembayaran tidak sah/
-                gagal</p>
+            <p *ngFor="let line of getFooterPaymentLines()">{{ line }}</p>
         </div>
     </div>
 </div>

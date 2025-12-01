@@ -19,6 +19,7 @@ export interface SJAlias {
     ppn: number;
     catatan: string;
     terbilang: string;
+    footerPayment: string;
     bankTransfer: {
         nama: string;
         jenis: string;
