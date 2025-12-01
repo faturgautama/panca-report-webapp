@@ -119,7 +119,8 @@ export class MockDatasource {
             nama: 'PT. Panca Usaha Sakti',
             jenis: 'BCA',
             noRekening: '182 879 7777'
-        }
+        },
+        footerPayment: ''
     };
 
     mockDataProduksiWip: ProduksiWIPReport = {
