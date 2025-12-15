@@ -13,6 +13,7 @@ interface SJAliasApiResponse {
     data: {
         noSeriLembarManualSp: string;
         namaCustomer: string;
+        namaSales: string;
         alamatLengkapCustomer: string;
         tanggal: string;
         tglJatuhTempo: string;
@@ -67,6 +68,7 @@ export class SJAliasService {
 
         return {
             noSP: data.noSeriLembarManualSp,
+            namaSales: data.namaSales,
             konsumen: data.namaCustomer,
             alamat: data.alamatLengkapCustomer.replace(/\r\n/g, ' ').trim(),
             tanggal: data.tanggal,
