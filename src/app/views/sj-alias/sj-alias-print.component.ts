@@ -45,7 +45,7 @@ export class SJAliasPrintComponent implements OnInit {
     }
 
     autoPrint(): void {
-        window.print();
+        // window.print();
     }
 
     print(): void {

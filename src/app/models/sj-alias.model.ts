@@ -9,6 +9,7 @@ export interface SJAliasItem {
 
 export interface SJAlias {
     noSP: string;
+    namaSales?: string;
     konsumen: string;
     alamat: string;
     tanggal: string;

@@ -15,7 +15,12 @@ interface ReportMenu {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, CardModule, ButtonModule, NgClass],
+  imports: [
+    // RouterLink, 
+    CardModule,
+    ButtonModule,
+    // NgClass
+  ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
