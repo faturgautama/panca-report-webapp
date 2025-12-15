@@ -64,7 +64,7 @@
 
 .report-content {
     color: #000;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: normal;
     line-height: 1.4;
 }
@@ -73,7 +73,7 @@
     margin-bottom: 20px;
 
     .title {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: bold;
         margin: 0;
     }
@@ -90,7 +90,7 @@
             display: flex;
             gap: 8px;
             margin-bottom: 3px;
-            font-size: 11px;
+            font-size: 12px;
 
             .label {
                 min-width: 90px;
@@ -112,7 +112,7 @@
     border-collapse: collapse;
     border: 1px solid #000;
     margin-bottom: 15px;
-    font-size: 10px;
+    font-size: 11px;
 
     thead {
         th {
@@ -174,7 +174,7 @@
 
     .left-notes {
         flex: 1;
-        font-size: 9px;
+        font-size: 10px;
         padding-right: 20px;
 
         p {
@@ -190,7 +190,7 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 3px;
-            font-size: 11px;
+            font-size: 12px;
 
             .label {
                 font-weight: bold;
@@ -209,7 +209,7 @@
 
     .signature-label {
         margin-bottom: 15px;
-        font-size: 10px;
+        font-size: 11px;
 
         p {
             margin: 0;
@@ -227,7 +227,7 @@
             text-align: center;
 
             .box-title {
-                font-size: 10px;
+                font-size: 11px;
                 margin-bottom: 40px;
             }
 
@@ -240,7 +240,7 @@
 }
 
 .footer-notes {
-    font-size: 9px;
+    font-size: 10px;
     line-height: 1.4;
 
     p {
