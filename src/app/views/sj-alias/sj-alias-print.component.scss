@@ -169,13 +169,12 @@
 
 .summary-section {
     display: flex;
-    justify-content: space-between;
+    gap: 40px;
     margin-bottom: 20px;
 
     .left-notes {
         flex: 1;
         font-size: 10px;
-        padding-right: 20px;
 
         p {
             margin: 0;
@@ -191,6 +190,7 @@
             justify-content: space-between;
             margin-bottom: 3px;
             font-size: 12px;
+            padding-right: 30px;
 
             .label {
                 font-weight: bold;
